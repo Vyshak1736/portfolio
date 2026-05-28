@@ -1,0 +1,1287 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vishak S | Senior Back-End &amp; Full Stack Engineer - SaaS, Payments &amp; CRMs</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons for tech stack visualization -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts - Inter & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            900: '#312e81',
+                        },
+                        accent: {
+                            cyan: '#06b6d4',
+                            emerald: '#10b981',
+                            violet: '#8b5cf6',
+                        },
+                        dark: {
+                            950: '#070a13',
+                            900: '#0b0f19',
+                            800: '#111827',
+                            700: '#1f2937',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #070a13;
+            color: #f3f4f6;
+        }
+        
+        /* Custom scrollbar matching dark mode theme */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #070a13;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1f2937;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #374151;
+        }
+
+        /* Ambient background grid */
+        .grid-bg {
+            background-size: 40px 40px;
+            background-image: linear-gradient(to right, rgba(99, 102, 241, 0.04) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(99, 102, 241, 0.04) 1px, transparent 1px);
+        }
+
+        /* Pulsing node animations representing system integrations */
+        @keyframes activeGlow {
+            0%, 100% { filter: drop-shadow(0 0 4px rgba(6, 182, 212, 0.4)); }
+            50% { filter: drop-shadow(0 0 15px rgba(6, 182, 212, 0.8)); }
+        }
+        .node-active-cyan {
+            animation: activeGlow 2s infinite ease-in-out;
+            border-color: #06b6d4 !important;
+            color: #06b6d4 !important;
+        }
+
+        @keyframes activeGlowEmerald {
+            0%, 100% { filter: drop-shadow(0 0 4px rgba(16, 185, 129, 0.4)); }
+            50% { filter: drop-shadow(0 0 15px rgba(16, 185, 129, 0.8)); }
+        }
+        .node-active-emerald {
+            animation: activeGlowEmerald 2s infinite ease-in-out;
+            border-color: #10b981 !important;
+            color: #10b981 !important;
+        }
+
+        /* Flow line animations in simulator */
+        @keyframes flowDash {
+            to {
+                stroke-dashoffset: -20;
+            }
+        }
+        .flowing-connector {
+            stroke-dasharray: 6, 4;
+            animation: flowDash 0.8s linear infinite;
+        }
+
+        /* Animated notifications sliding from bottom-right */
+        @keyframes slideInUp {
+            from {
+                transform: translateY(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        .animate-toast {
+            animation: slideInUp 0.3s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+
+    <!-- Notification Toast Container -->
+    <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-3"></div>
+
+    <!-- Navigation Header -->
+    <header class="fixed top-0 left-0 w-full z-40 bg-dark-950/80 backdrop-blur-md border-b border-gray-800 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <a href="#" class="flex items-center space-x-2">
+                <span class="font-mono text-xl font-bold tracking-tight text-white">
+                    <span class="text-brand-500">&lt;</span>VISHAK.S<span class="text-brand-500"> /&gt;</span>
+                </span>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium">
+                <a href="#about" class="text-gray-400 hover:text-white transition">About</a>
+                <a href="#interactive-flow" class="text-gray-400 hover:text-white transition">System Sandbox</a>
+                <a href="#experience" class="text-gray-400 hover:text-white transition">Experience</a>
+                <a href="#projects" class="text-gray-400 hover:text-white transition">Projects</a>
+                <a href="#skills" class="text-gray-400 hover:text-white transition">Skills Matrix</a>
+                <a href="#contact" class="px-4 py-2 bg-gradient-to-r from-brand-600 to-accent-violet rounded-lg text-white hover:from-brand-500 hover:to-accent-violet/90 transition shadow-lg shadow-brand-500/10">Get In Touch</a>
+            </nav>
+
+            <!-- Mobile Menu Toggler -->
+            <button id="mobile-menu-btn" class="md:hidden text-gray-400 hover:text-white focus:outline-none" aria-label="Toggle Menu">
+                <i class="fa-solid fa-bars text-xl"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Nav Menu dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-dark-900 border-b border-gray-800 px-4 pt-2 pb-6 space-y-3 transition-all duration-300">
+            <a href="#about" class="block text-gray-300 hover:text-white py-2 text-base font-medium">About</a>
+            <a href="#interactive-flow" class="block text-gray-300 hover:text-white py-2 text-base font-medium">System Sandbox</a>
+            <a href="#experience" class="block text-gray-300 hover:text-white py-2 text-base font-medium">Experience</a>
+            <a href="#projects" class="block text-gray-300 hover:text-white py-2 text-base font-medium">Projects</a>
+            <a href="#skills" class="block text-gray-300 hover:text-white py-2 text-base font-medium">Skills Matrix</a>
+            <a href="#contact" class="block text-center py-2.5 bg-brand-600 hover:bg-brand-500 rounded-lg text-white text-base font-medium">Get In Touch</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="about" class="relative pt-32 pb-24 md:pt-40 md:pb-36 overflow-hidden grid-bg">
+        <div class="absolute inset-0 bg-gradient-to-t from-dark-950 via-transparent to-transparent"></div>
+        
+        <!-- Glowing Decorative Ambient Elements -->
+        <div class="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-brand-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-1/4 right-1/4 translate-x-1/2 translate-y-1/2 w-96 h-96 bg-accent-cyan/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <!-- Left Hand Overview -->
+                <div class="lg:col-span-7 text-left space-y-6">
+                    <div class="inline-flex items-center space-x-2 px-3 py-1 bg-brand-500/10 border border-brand-500/30 rounded-full text-brand-500 text-xs font-semibold tracking-wider uppercase">
+                        <span class="flex h-2 w-2 relative">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-500"></span>
+                        </span>
+                        <span>Full Stack Engineer (Back-End Focus)</span>
+                    </div>
+
+                    <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white leading-none">
+                        Hi, I'm <span class="bg-clip-text text-transparent bg-gradient-to-r from-brand-500 via-accent-cyan to-accent-emerald">Vishak S</span>
+                    </h1>
+                    
+                    <h2 class="text-xl sm:text-2xl font-semibold text-gray-300 font-mono">
+                        &gt; Server-Side &amp; Infrastructure Specialist (4+ Years Exp)
+                    </h2>
+
+                    <p class="text-gray-400 text-base sm:text-lg max-w-xl leading-relaxed">
+                        I specialize in designing and delivering high-performance, scalable server-side systems across <strong class="text-white font-semibold">fintech, B2B/B2C SaaS, and CRM platforms</strong>. Expert in <strong class="text-white font-semibold">Python (Django, FastAPI), microservices, AWS deployment</strong>, real-time message streaming with Kafka, and deduplicated webhook architectures using Celery &amp; Redis.
+                    </p>
+
+                    <!-- Tech Focus Labels -->
+                    <div class="flex flex-wrap gap-2 pt-1">
+                        <span class="bg-brand-500/10 border border-brand-500/20 text-brand-400 text-xs px-2.5 py-1 rounded-md font-mono">#Django-PostgreSQL</span>
+                        <span class="bg-accent-cyan/10 border border-accent-cyan/20 text-accent-cyan text-xs px-2.5 py-1 rounded-md font-mono">#Redis-NX-Deduplication</span>
+                        <span class="bg-accent-emerald/10 border border-accent-emerald/20 text-accent-emerald text-xs px-2.5 py-1 rounded-md font-mono">#Kafka-Event-Streaming</span>
+                        <span class="bg-accent-violet/10 border border-accent-violet/20 text-accent-violet text-xs px-2.5 py-1 rounded-md font-mono">#Docker-AWS</span>
+                    </div>
+
+                    <!-- Direct Contact Details -->
+                    <div class="flex flex-wrap gap-3 pt-2 text-sm">
+                        <span class="inline-flex items-center space-x-2 bg-dark-900 border border-gray-800 px-3 py-1.5 rounded-lg text-gray-300">
+                            <i class="fa-solid fa-envelope text-brand-500"></i>
+                            <span>vishak1736@gmail.com</span>
+                        </span>
+                        <span class="inline-flex items-center space-x-2 bg-dark-900 border border-gray-800 px-3 py-1.5 rounded-lg text-gray-300">
+                            <i class="fa-solid fa-phone text-accent-emerald"></i>
+                            <span>+91 9791921736</span>
+                        </span>
+                        <span class="inline-flex items-center space-x-2 bg-dark-900 border border-gray-800 px-3 py-1.5 rounded-lg text-gray-300">
+                            <i class="fa-solid fa-location-dot text-accent-cyan"></i>
+                            <span>Bangalore, India</span>
+                        </span>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                        <a href="#interactive-flow" class="px-6 py-3 bg-brand-600 hover:bg-brand-500 rounded-xl text-white font-medium text-center transition shadow-lg shadow-brand-500/20 flex items-center justify-center space-x-2">
+                            <i class="fa-solid fa-terminal"></i>
+                            <span>Simulate Webhook Pipelines</span>
+                        </a>
+                        <a href="#contact" class="px-6 py-3 bg-dark-900 border border-gray-800 hover:border-gray-700 rounded-xl text-gray-300 hover:text-white font-medium text-center transition flex items-center justify-center space-x-2">
+                            <i class="fa-solid fa-network-wired"></i>
+                            <span>Send Payload API Request</span>
+                        </a>
+                        <a href="https://linkedin.com/in/720966208" target="_blank" rel="noopener noreferrer" class="px-6 py-3 bg-dark-900 border border-gray-800 hover:border-gray-700 rounded-xl text-gray-300 hover:text-white font-medium text-center transition flex items-center justify-center space-x-2">
+                            <i class="fa-brands fa-linkedin text-brand-500"></i>
+                            <span>LinkedIn Connect</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right Hand IDE Window -->
+                <div class="lg:col-span-5 relative">
+                    <div class="w-full bg-dark-900 border border-gray-800 rounded-2xl shadow-2xl overflow-hidden font-mono text-sm leading-relaxed">
+                        <!-- IDE Navigation Header -->
+                        <div class="bg-dark-950 px-4 py-3 border-b border-gray-800 flex items-center justify-between">
+                            <div class="flex space-x-2">
+                                <span class="w-3 h-3 bg-red-500 rounded-full inline-block"></span>
+                                <span class="w-3 h-3 bg-yellow-500 rounded-full inline-block"></span>
+                                <span class="w-3 h-3 bg-green-500 rounded-full inline-block"></span>
+                            </div>
+                            <span class="text-xs text-gray-500">backend_developer.py</span>
+                            <i class="fa-regular fa-copy text-gray-500 hover:text-gray-300 cursor-pointer" onclick="copyHeroCode()" title="Copy snippet"></i>
+                        </div>
+                        <!-- IDE Workspace Code -->
+                        <div class="p-5 text-gray-400 overflow-x-auto">
+<pre id="code-snippet-profile" class="text-xs sm:text-sm"><span class="text-accent-violet">from</span> pydantic <span class="text-accent-violet">import</span> BaseModel
+<span class="text-accent-violet">from</span> typing <span class="text-accent-violet">import</span> List, Dict
+
+<span class="text-accent-cyan">class</span> <span class="text-white">DeveloperProfile</span>(BaseModel):
+    identity: str = <span class="text-accent-emerald">"Vishak S"</span>
+    experience_years: float = <span class="text-accent-emerald">4.0</span>
+    roles: List[str] = [<span class="text-accent-emerald">"Full Stack Engineer"</span>, <span class="text-accent-emerald">"Back-End Specialist"</span>]
+    domain_knowledge: List[str] = [<span class="text-accent-emerald">"Fintech"</span>, <span class="text-accent-emerald">"SaaS"</span>, <span class="text-accent-emerald">"CRM"</span>]
+    primary_backend: List[str] = [<span class="text-accent-emerald">"Django"</span>, <span class="text-accent-emerald">"FastAPI"</span>, <span class="text-accent-emerald">"DRF"</span>]
+    data_infra: List[str] = [<span class="text-accent-emerald">"PostgreSQL"</span>, <span class="text-accent-emerald">"MySQL Tuning"</span>]
+    concurrency_layer: Dict[str, str] = {
+        <span class="text-accent-emerald">"brokers"</span>: <span class="text-yellow-500">"Kafka, Celery, Redis"</span>,
+        <span class="text-accent-emerald">"strategies"</span>: <span class="text-yellow-500">"NX Deduplication, Caching"</span>
+    }
+    cloud_ops: Dict[str, str] = {
+        <span class="text-accent-emerald">"aws"</span>: <span class="text-yellow-500">"EC2, S3, RDS, Deployments, CI/CD"</span>,
+        <span class="text-accent-emerald">"security"</span>: <span class="text-yellow-500">"Let's Encrypt SSL, RBAC, JWT, Encryption"</span>
+    }
+
+print(<span class="text-accent-emerald">"Loaded Vishak's professional profile successfully."</span>)</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Architecture Simulator -->
+    <section id="interactive-flow" class="py-20 bg-dark-900 border-y border-gray-800 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="text-sm font-semibold text-brand-500 uppercase tracking-widest">Interactive Pipeline Sandbox</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2">Server-Side Pipeline Webhook Simulator</h2>
+                <p class="text-gray-400 mt-3">
+                    Vishak designs distributed message workflows to support critical business interactions. Select a business backend scenario (CRM webhooks, real-time banking webhooks, or high-volume background tasks) to execute the simulation.
+                </p>
+            </div>
+
+            <!-- Simulator Card Container -->
+            <div class="bg-dark-950 border border-gray-800 rounded-2xl overflow-hidden p-6 md:p-8 shadow-2xl">
+                <!-- Visual Nodes Block -->
+                <div class="relative min-h-[320px] bg-dark-900 rounded-xl border border-gray-800/80 p-6 flex flex-col items-center justify-between gap-8 md:gap-0 md:flex-row mb-8 overflow-hidden">
+                    
+                    <!-- Flow Connection SVG Paths -->
+                    <svg class="absolute inset-0 w-full h-full hidden md:block pointer-events-none" style="z-index: 1;">
+                        <!-- Connection Line: Webhook Event -> Webhook Gateway -->
+                        <path id="path1" d="M 120 130 H 220" fill="none" stroke="#374151" stroke-width="2" />
+                        <!-- Connection Line: Gateway -> Queue / Broker -->
+                        <path id="path2" d="M 330 130 H 420" fill="none" stroke="#374151" stroke-width="2" />
+                        <!-- Connection Line: Queue -> Task Workers -->
+                        <path id="path3" d="M 500 130 H 590" fill="none" stroke="#374151" stroke-width="2" />
+                        <!-- Connection Line: Workers -> Database Ledger -->
+                        <path id="path4" d="M 690 130 H 800" fill="none" stroke="#374151" stroke-width="2" />
+
+                        <!-- Active Connection Flow Highlights -->
+                        <path id="flow1" d="M 120 130 H 220" fill="none" stroke="transparent" stroke-width="3" class="flowing-connector" />
+                        <path id="flow2" d="M 330 130 H 420" fill="none" stroke="transparent" stroke-width="3" class="flowing-connector" />
+                        <path id="flow3" d="M 500 130 H 590" fill="none" stroke="transparent" stroke-width="3" class="flowing-connector" />
+                        <path id="flow4" d="M 690 130 H 800" fill="none" stroke="transparent" stroke-width="3" class="flowing-connector" />
+                    </svg>
+
+                    <!-- Node 1: Client Application Webhook Sender -->
+                    <div id="node-client" class="z-10 w-40 flex flex-col items-center p-3 bg-dark-950 border border-gray-800 rounded-xl transition duration-300 text-center">
+                        <div class="w-10 h-10 bg-brand-500/10 rounded-full flex items-center justify-center mb-2 text-brand-500">
+                            <i class="fa-solid fa-cloud-arrow-up"></i>
+                        </div>
+                        <span class="text-xs font-mono font-bold text-white uppercase tracking-tight">External Hook</span>
+                        <span class="text-[10px] text-gray-500 mt-1">Webhook Dispatcher</span>
+                    </div>
+
+                    <!-- Node 2: API Gateway / FastAPI & Django Service -->
+                    <div id="node-api" class="z-10 w-40 flex flex-col items-center p-3 bg-dark-950 border border-gray-800 rounded-xl transition duration-300 text-center">
+                        <div class="w-10 h-10 bg-accent-cyan/10 rounded-full flex items-center justify-center mb-2 text-accent-cyan">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <span class="text-xs font-mono font-bold text-white uppercase tracking-tight">REST Server</span>
+                        <span class="text-[10px] text-gray-500 mt-1">Django/FastAPI Auth</span>
+                    </div>
+
+                    <!-- Node 3: Apache Kafka / Redis Cache -->
+                    <div id="node-kafka" class="z-10 w-40 flex flex-col items-center p-3 bg-dark-950 border border-gray-800 rounded-xl transition duration-300 text-center">
+                        <div class="w-10 h-10 bg-accent-violet/10 rounded-full flex items-center justify-center mb-2 text-accent-violet">
+                            <i class="fa-solid fa-cubes"></i>
+                        </div>
+                        <span class="text-xs font-mono font-bold text-white uppercase tracking-tight">Kafka &amp; Redis</span>
+                        <span class="text-[10px] text-gray-500 mt-1">NX Deduplication</span>
+                    </div>
+
+                    <!-- Node 4: Celery Background Workers -->
+                    <div id="node-celery" class="z-10 w-40 flex flex-col items-center p-3 bg-dark-950 border border-gray-800 rounded-xl transition duration-300 text-center">
+                        <div class="w-10 h-10 bg-yellow-500/10 rounded-full flex items-center justify-center mb-2 text-yellow-500">
+                            <i class="fa-solid fa-gears"></i>
+                        </div>
+                        <span class="text-xs font-mono font-bold text-white uppercase tracking-tight">Celery Workers</span>
+                        <span class="text-[10px] text-gray-500 mt-1">Asynchronous Tasks</span>
+                    </div>
+
+                    <!-- Node 5: Database Persistence Layer -->
+                    <div id="node-db" class="z-10 w-40 flex flex-col items-center p-3 bg-dark-950 border border-gray-800 rounded-xl transition duration-300 text-center">
+                        <div class="w-10 h-10 bg-accent-emerald/10 rounded-full flex items-center justify-center mb-2 text-accent-emerald">
+                            <i class="fa-solid fa-database"></i>
+                        </div>
+                        <span class="text-xs font-mono font-bold text-white uppercase tracking-tight">PostgreSQL</span>
+                        <span class="text-[10px] text-gray-500 mt-1">Query Optimized Index</span>
+                    </div>
+
+                </div>
+
+                <!-- Simulation Interactive Input Panel & Logging Console -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+                    <!-- Config Controls -->
+                    <div class="bg-dark-900 border border-gray-800 p-5 rounded-xl space-y-4">
+                        <h3 class="text-sm font-bold font-mono text-gray-300 uppercase tracking-widest">Pipeline Controls</h3>
+                        <p class="text-xs text-gray-400">Select which component of Vishak's professional back-end pipeline architecture to simulate.</p>
+                        
+                        <!-- Configuration Form Elements -->
+                        <div class="space-y-3 pt-2">
+                            <div>
+                                <label class="text-[10px] text-gray-500 font-mono uppercase">System Scenario</label>
+                                <select id="sim-scenario" class="w-full bg-dark-950 border border-gray-800 rounded-lg p-2 text-sm text-gray-300 focus:outline-none focus:border-brand-500">
+                                    <option value="CRM_WHATSAPP">EZY Helpers: WhatsApp webhook client sync with NX Deduplication</option>
+                                    <option value="B2B_PAYMENT">Jodo Fintech: Kafka-driven high volume payment settlement</option>
+                                    <option value="SaaS_EXPORT">Infinit Solutions: Asynchronous bulk CSV export (Pandas pipeline)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="text-[10px] text-gray-500 font-mono uppercase">Idempotency &amp; Encryption Strategy</label>
+                                <select id="sim-security" class="w-full bg-dark-950 border border-gray-800 rounded-lg p-2 text-sm text-gray-300 focus:outline-none focus:border-brand-500">
+                                    <option value="VALID">Redis NX Lock Active (Guaranteed Deduplication)</option>
+                                    <option value="DUPLICATED">Duplicate request sent (Block repeat processing via lock)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <button id="trigger-sim-btn" onclick="startArchitectureSimulation()" class="w-full py-3 bg-gradient-to-r from-brand-600 to-accent-cyan rounded-xl text-white font-bold text-xs uppercase tracking-widest hover:brightness-110 transition duration-300 shadow-md shadow-brand-500/15">
+                            Trigger Simulation
+                        </button>
+                    </div>
+
+                    <!-- Interactive Logging Terminal Screen -->
+                    <div class="lg:col-span-2 bg-dark-900 border border-gray-800 rounded-xl overflow-hidden font-mono text-xs">
+                        <!-- Bar -->
+                        <div class="bg-dark-950 px-4 py-3 border-b border-gray-800 flex items-center justify-between">
+                            <span class="text-[11px] font-bold text-gray-400 flex items-center space-x-2">
+                                <span class="w-2.5 h-2.5 rounded-full bg-accent-cyan inline-block animate-pulse"></span>
+                                <span>CENTRALIZED DISTRIBUTED SYSTEM LOGS</span>
+                            </span>
+                            <span class="text-[10px] text-gray-500">Event Stream Logs</span>
+                        </div>
+                        <!-- Screen -->
+                        <div id="terminal-screen" class="p-4 h-56 overflow-y-auto space-y-2 text-gray-400">
+                            <div class="text-gray-600">&gt; Backend components healthy. Select a pipeline and run trigger system to execute logs...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-20 bg-dark-950 relative">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="text-sm font-semibold text-brand-500 uppercase tracking-widest">My Engineering Path</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2">Professional Experience</h2>
+                <p class="text-gray-400 mt-3">4+ years of hands-on experience building core transaction pipelines, microservices, CRM communication layers, and enterprise databases.</p>
+            </div>
+
+            <div class="relative border-l-2 border-gray-800 ml-4 md:ml-32 font-sans">
+                <!-- Role 1: EZY Helpers -->
+                <div class="mb-12 relative pl-6 md:pl-8">
+                    <!-- Absolute dates side markers -->
+                    <div class="hidden md:block absolute -left-36 top-1 text-right w-28">
+                        <span class="text-sm font-bold text-white block">Feb 2026 - Present</span>
+                        <span class="text-xs text-brand-500">Bangalore, IN</span>
+                    </div>
+
+                    <!-- Circle locator pointer -->
+                    <div class="absolute -left-[11px] top-1.5 w-5 h-5 bg-brand-500 border-4 border-dark-950 rounded-full"></div>
+
+                    <div class="bg-dark-900 border border-gray-800 rounded-xl p-6 transition hover:border-brand-500/40 shadow-lg hover:shadow-brand-500/5">
+                        <span class="md:hidden text-xs font-semibold text-brand-500 block mb-1">Feb 2026 - Present | Bangalore, India</span>
+                        <h3 class="text-xl font-bold text-white flex flex-wrap items-center gap-2">
+                            <span>Full Stack Engineer (Back-End Focus)</span>
+                            <span class="text-brand-500 bg-brand-500/10 text-xs px-2 py-0.5 rounded border border-brand-500/20 font-mono">EZY Helpers</span>
+                        </h3>
+                        <p class="text-sm text-gray-400 font-mono mt-1">Enterprise Customer CRM Backend Pipelines</p>
+                        
+                        <ul class="mt-4 space-y-2.5 text-sm text-gray-400">
+                            <li class="flex items-start">
+                                <span class="text-brand-500 mr-2 mt-1.5 select-none text-[8px]"><i class="fa-solid fa-circle"></i></span>
+                                <span>Own and develop <strong class="text-white font-medium">CHAP</strong>—the company's core internal customer relationship management (CRM) suite—end-to-end on a Django &amp; PostgreSQL database structure.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-brand-500 mr-2 mt-1.5 select-none text-[8px]"><i class="fa-solid fa-circle"></i></span>
+                                <span>Architected multi-stage customer communication automation pipelines using <strong class="text-white font-medium">Celery</strong>, <strong class="text-white font-medium">Redis</strong>, and WhatsApp gateway webhooks, introducing per-customer journey locks and Redis NX deduplication layers.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-brand-500 mr-2 mt-1.5 select-none text-[8px]"><i class="fa-solid fa-circle"></i></span>
+                                <span>Designed and maintained highly performant RESTful APIs supporting responsive web dashboard clients and native mobile front-ends with RBAC configurations.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-brand-500 mr-2 mt-1.5 select-none text-[8px]"><i class="fa-solid fa-circle"></i></span>
+                                <span>Manage Amazon Web Services (AWS) deployment environments, maintaining Docker Compose infrastructure setups, Nginx servers, SSL integration (Let's Encrypt / Certbot), and DNS routes.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Role 2: Jodo Fintech -->
+                <div class="mb-12 relative pl-6 md:pl-8">
+                    <div class="hidden md:block absolute -left-36 top-1 text-right w-28">
+                        <span class="text-sm font-bold text-white block">Feb 2025 - Dec 2025</span>
+                        <span class="text-xs text-accent-cyan">Bangalore, IN</span>
+                    </div>
+
+                    <div class="absolute -left-[11px] top-1.5 w-5 h-5 bg-accent-cyan border-4 border-dark-950 rounded-full"></div>
+
+                    <div class="bg-dark-900 border border-gray-800 rounded-xl p-6 transition hover:border-accent-cyan/40 shadow-lg hover:shadow-accent-cyan/5">
+                        <span class="md:hidden text-xs font-semibold text-accent-cyan block mb-1">Feb 2025 - Dec 2025 | Bangalore, India</span>
+                        <h3 class="text-xl font-bold text-white flex flex-wrap items-center gap-2">
+                            <span>Associate Software Engineer</span>
+                            <span class="text-accent-cyan bg-accent-cyan/10 text-xs px-2 py-0.5 rounded border border-accent-cyan/20 font-mono">Jodo Fintech</span>
+                        </h3>
+                        <p class="text-sm text-gray-400 font-mono mt-1">High-Volume Decoupled Payment Architectures</p>
+                        
+                        <ul class="mt-4 space-y-2.5 text-sm text-gray-400">
+                            <li class="flex items-start">
+                                <span class="text-accent-cyan mr-2 mt-1.5 select-none text-[8px]"><i class="fa-solid fa-circle"></i></span>
+                                <span>Co-developed payment microservices processing thousands of high-volume financial transactions daily.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-accent-cyan mr-2 mt-1.5 select-none text-[8px]"><i class="fa-solid fa-circle"></i></span>
+                                <span>Implemented bulletproof webhook retry mechanisms and event integrations over <strong class="text-white font-medium">Apache Kafka</strong> for real-time ledger sync operations.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-accent-cyan mr-2 mt-1.5 select-none text-[8px]"><i class="fa-solid fa-circle"></i></span>
+                                <span>Leveraged <strong class="text-white font-medium">Celery</strong> asynchronous task queues with Redis to process billing pipelines and background transactions, boosting overall system throughput.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Role 3: Infinit Solutions -->
+                <div class="mb-6 relative pl-6 md:pl-8">
+                    <div class="hidden md:block absolute -left-36 top-1 text-right w-28">
+                        <span class="text-sm font-bold text-white block">Apr 2022 - Feb 2025</span>
+                        <span class="text-xs text-accent-violet">Coimbatore, IN</span>
+                    </div>
+
+                    <div class="absolute -left-[11px] top-1.5 w-5 h-5 bg-accent-violet border-4 border-dark-950 rounded-full"></div>
+
+                    <div class="bg-dark-900 border border-gray-800 rounded-xl p-6 transition hover:border-accent-violet/40 shadow-lg hover:shadow-accent-violet/5">
+                        <span class="md:hidden text-xs font-semibold text-accent-violet block mb-1">Apr 2022 - Feb 2025 | Coimbatore, India</span>
+                        <h3 class="text-xl font-bold text-white flex flex-wrap items-center gap-2">
+                            <span>Junior Software Engineer</span>
+                            <span class="text-accent-violet bg-accent-violet/10 text-xs px-2 py-0.5 rounded border border-accent-violet/20 font-mono font-medium">Infinit Solutions</span>
+                        </h3>
+                        <p class="text-sm text-gray-400 font-mono mt-1">Multi-Tenant Backend SaaS Applications</p>
+                        
+                        <ul class="mt-4 space-y-2.5 text-sm text-gray-400">
+                            <li class="flex items-start">
+                                <span class="text-accent-violet mr-2 mt-1.5 select-none text-[8px]"><i class="fa-solid fa-circle"></i></span>
+                                <span>Engineered scalable APIs with Django and <strong class="text-white font-medium">Django REST Framework</strong> serving diverse client SaaS tools.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-accent-violet mr-2 mt-1.5 select-none text-[8px]"><i class="fa-solid fa-circle"></i></span>
+                                <span>Created multi-user authorization structures using token setups, role limits, and data level AES encryption protocols.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-accent-violet mr-2 mt-1.5 select-none text-[8px]"><i class="fa-solid fa-circle"></i></span>
+                                <span>Engineered massive parallel import and export systems (CSV, XLSX, PDF generation workloads) utilizing <strong class="text-white font-medium">Pandas</strong>.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-accent-violet mr-2 mt-1.5 select-none text-[8px]"><i class="fa-solid fa-circle"></i></span>
+                                <span>Maintained staging and production environments on AWS using Gunicorn, Nginx proxies, and GitHub Action workflows.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 bg-dark-900 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="text-sm font-semibold text-brand-500 uppercase tracking-widest">Selected Portfolios</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2">Projects Showcase</h2>
+                <p class="text-gray-400 mt-3">Production implementations highlighting SaaS development, CRM webhooks, B2B/B2C systems, and transactional logic.</p>
+            </div>
+
+            <!-- Grid of Project Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Project 1: CHAP CRM Architecture -->
+                <div class="bg-dark-950 border border-gray-800 rounded-2xl overflow-hidden hover:border-brand-500/50 transition duration-300 flex flex-col justify-between group">
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="text-xs font-mono text-brand-500 bg-brand-500/10 px-2.5 py-1 rounded border border-brand-500/20">CRM &amp; Messaging</span>
+                            <span class="text-gray-600 group-hover:text-brand-500 transition"><i class="fa-solid fa-address-book text-xl"></i></span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">CHAP CRM Communication Pipeline</h3>
+                        <p class="text-sm text-gray-400 mb-6 line-clamp-3">
+                            The core back-end server running multi-stage CRM pipelines. Implements WhatsApp webhooks, custom user journeys, and robust Redis NX deduplication to process duplicate inputs gracefully.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-dark-900 border border-gray-800 px-2 py-1 rounded text-xs text-gray-400">Django</span>
+                            <span class="bg-dark-900 border border-gray-800 px-2 py-1 rounded text-xs text-gray-400">Celery &amp; Redis</span>
+                            <span class="bg-dark-900 border border-gray-800 px-2 py-1 rounded text-xs text-gray-400">WhatsApp Webhooks</span>
+                            <span class="bg-dark-900 border border-gray-800 px-2 py-1 rounded text-xs text-gray-400">Let's Encrypt SSL</span>
+                        </div>
+                    </div>
+                    <div class="px-6 py-4 bg-dark-900/60 border-t border-gray-800/80 flex items-center justify-between">
+                        <button onclick="openProjectModal('chap-crm')" class="text-xs font-semibold text-brand-500 hover:text-brand-400 flex items-center space-x-1.5">
+                            <span>Deep Dive Architecture</span>
+                            <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Project 2: Decoupled Payment Integration -->
+                <div class="bg-dark-950 border border-gray-800 rounded-2xl overflow-hidden hover:border-accent-cyan/50 transition duration-300 flex flex-col justify-between group">
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="text-xs font-mono text-accent-cyan bg-accent-cyan/10 px-2.5 py-1 rounded border border-accent-cyan/20">FinTech Microservices</span>
+                            <span class="text-gray-600 group-hover:text-accent-cyan transition"><i class="fa-solid fa-credit-card text-xl"></i></span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">Microservices Payment &amp; Integration Platform</h3>
+                        <p class="text-sm text-gray-400 mb-6 line-clamp-3">
+                            A highly-available microservices backend built using Python and FastAPI. Streams transactions over Apache Kafka, handling instant debit triggers, webhooks, and billing plans.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-dark-900 border border-gray-800 px-2 py-1 rounded text-xs text-gray-400">FastAPI</span>
+                            <span class="bg-dark-900 border border-gray-800 px-2 py-1 rounded text-xs text-gray-400">Kafka Stream</span>
+                            <span class="bg-dark-900 border border-gray-800 px-2 py-1 rounded text-xs text-gray-400">Celery</span>
+                            <span class="bg-dark-900 border border-gray-800 px-2 py-1 rounded text-xs text-gray-400">PostgreSQL</span>
+                        </div>
+                    </div>
+                    <div class="px-6 py-4 bg-dark-900/60 border-t border-gray-800/80 flex items-center justify-between">
+                        <button onclick="openProjectModal('payment-platform')" class="text-xs font-semibold text-accent-cyan hover:text-accent-cyan/80 flex items-center space-x-1.5">
+                            <span>Deep Dive Architecture</span>
+                            <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Project 3: Currency Exchange Platform -->
+                <div class="bg-dark-950 border border-gray-800 rounded-2xl overflow-hidden hover:border-accent-emerald/50 transition duration-300 flex flex-col justify-between group">
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="text-xs font-mono text-accent-emerald bg-accent-emerald/10 px-2.5 py-1 rounded border border-accent-emerald/20">B2B Financial Operations</span>
+                            <span class="text-gray-600 group-hover:text-accent-emerald transition"><i class="fa-solid fa-coins text-xl"></i></span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">Foreign Currency Exchange Platform</h3>
+                        <p class="text-sm text-gray-400 mb-6 line-clamp-3">
+                            A complete multi-user currency conversion system with automatic rates updates, secure token authorization, RBAC protections, and automated invoices generation modules.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-dark-900 border border-gray-800 px-2 py-1 rounded text-xs text-gray-400">Django REST</span>
+                            <span class="bg-dark-900 border border-gray-800 px-2 py-1 rounded text-xs text-gray-400">RBAC Security</span>
+                            <span class="bg-dark-900 border border-gray-800 px-2 py-1 rounded text-xs text-gray-400">Data Encryption</span>
+                            <span class="bg-dark-900 border border-gray-800 px-2 py-1 rounded text-xs text-gray-400">MySQL Indexing</span>
+                        </div>
+                    </div>
+                    <div class="px-6 py-4 bg-dark-900/60 border-t border-gray-800/80 flex items-center justify-between">
+                        <button onclick="openProjectModal('forex-system')" class="text-xs font-semibold text-accent-emerald hover:text-accent-emerald/80 flex items-center space-x-1.5">
+                            <span>Deep Dive Architecture</span>
+                            <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Project 4: Enterprise Admin Analytics -->
+                <div class="bg-dark-950 border border-gray-800 rounded-2xl overflow-hidden hover:border-accent-violet/50 transition duration-300 flex flex-col justify-between group">
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="text-xs font-mono text-accent-violet bg-accent-violet/10 px-2.5 py-1 rounded border border-accent-violet/20">Fullstack Control Dashboard</span>
+                            <span class="text-gray-600 group-hover:text-accent-violet transition"><i class="fa-solid fa-chart-line text-xl"></i></span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">Enterprise Admin Dashboard with Analytics</h3>
+                        <p class="text-sm text-gray-400 mb-6 line-clamp-3">
+                            Full-stack dashboard connected with React.js interfaces, rendering metrics on operational health with ApexCharts, structured database views, and fast automated exports.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-dark-900 border border-gray-800 px-2 py-1 rounded text-xs text-gray-400">ReactJS</span>
+                            <span class="bg-dark-900 border border-gray-800 px-2 py-1 rounded text-xs text-gray-400">Django</span>
+                            <span class="bg-dark-900 border border-gray-800 px-2 py-1 rounded text-xs text-gray-400">ApexCharts</span>
+                            <span class="bg-dark-900 border border-gray-800 px-2 py-1 rounded text-xs text-gray-400">AWS Infrastructure</span>
+                        </div>
+                    </div>
+                    <div class="px-6 py-4 bg-dark-900/60 border-t border-gray-800/80 flex items-center justify-between">
+                        <button onclick="openProjectModal('analytics-dashboard')" class="text-xs font-semibold text-accent-violet hover:text-accent-violet/80 flex items-center space-x-1.5">
+                            <span>Deep Dive Architecture</span>
+                            <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Matrix & Tech Stack Section -->
+    <section id="skills" class="py-20 bg-dark-950 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="text-sm font-semibold text-brand-500 uppercase tracking-widest">Core Capabilities</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2">Technical Skills &amp; Core Concepts</h2>
+                <p class="text-gray-400 mt-3">Interactive capabilities matrix sorted across architectural layers and operational boundaries.</p>
+            </div>
+
+            <!-- Filter Buttons -->
+            <div class="flex flex-wrap justify-center gap-2 mb-10">
+                <button onclick="filterSkills('all')" id="skill-btn-all" class="px-4 py-2 bg-brand-600 text-white rounded-lg text-xs font-mono uppercase tracking-wider transition">All Layers</button>
+                <button onclick="filterSkills('fullstack')" id="skill-btn-fullstack" class="px-4 py-2 bg-dark-900 border border-gray-800 text-gray-400 hover:text-white rounded-lg text-xs font-mono uppercase tracking-wider transition">Full Stack &amp; Backend</button>
+                <button onclick="filterSkills('payments')" id="skill-btn-payments" class="px-4 py-2 bg-dark-900 border border-gray-800 text-gray-400 hover:text-white rounded-lg text-xs font-mono uppercase tracking-wider transition">Messaging &amp; Secure DB</button>
+                <button onclick="filterSkills('devops')" id="skill-btn-devops" class="px-4 py-2 bg-dark-900 border border-gray-800 text-gray-400 hover:text-white rounded-lg text-xs font-mono uppercase tracking-wider transition">Security &amp; DevOps</button>
+            </div>
+
+            <!-- Dynamic Interactive Skills Grid -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4" id="skills-grid">
+                <!-- Python -->
+                <div class="skill-card bg-dark-900 border border-gray-800 rounded-xl p-4 flex items-center space-x-3 transition hover:border-brand-500" data-category="fullstack">
+                    <div class="w-10 h-10 bg-[#3776AB]/10 text-[#3776AB] rounded-lg flex items-center justify-center text-lg"><i class="fa-brands fa-python"></i></div>
+                    <div>
+                        <h4 class="text-sm font-bold text-white">Python</h4>
+                        <span class="text-[10px] text-gray-500 font-mono">Django &amp; FastAPI</span>
+                    </div>
+                </div>
+
+                <!-- Django & DRF -->
+                <div class="skill-card bg-dark-900 border border-gray-800 rounded-xl p-4 flex items-center space-x-3 transition hover:border-brand-500" data-category="fullstack">
+                    <div class="w-10 h-10 bg-[#092E20]/20 text-[#092E20] rounded-lg flex items-center justify-center text-lg font-bold font-mono">Dj</div>
+                    <div>
+                        <h4 class="text-sm font-bold text-white">Django REST</h4>
+                        <span class="text-[10px] text-gray-500 font-mono">SaaS Engine</span>
+                    </div>
+                </div>
+
+                <!-- PostgreSQL & MySQL -->
+                <div class="skill-card bg-dark-900 border border-gray-800 rounded-xl p-4 flex items-center space-x-3 transition hover:border-brand-500" data-category="payments">
+                    <div class="w-10 h-10 bg-[#4169E1]/10 text-[#4169E1] rounded-lg flex items-center justify-center text-lg"><i class="fa-solid fa-database"></i></div>
+                    <div>
+                        <h4 class="text-sm font-bold text-white">PostgreSQL &amp; MySQL</h4>
+                        <span class="text-[10px] text-gray-500 font-mono">Optimization, Indexing</span>
+                    </div>
+                </div>
+
+                <!-- AWS Cloud -->
+                <div class="skill-card bg-dark-900 border border-gray-800 rounded-xl p-4 flex items-center space-x-3 transition hover:border-accent-cyan" data-category="devops">
+                    <div class="w-10 h-10 bg-[#FF9900]/10 text-[#FF9900] rounded-lg flex items-center justify-center text-lg"><i class="fa-brands fa-aws"></i></div>
+                    <div>
+                        <h4 class="text-sm font-bold text-white">AWS Cloud</h4>
+                        <span class="text-[10px] text-gray-500 font-mono">EC2, RDS, VPC, S3</span>
+                    </div>
+                </div>
+
+                <!-- Kafka -->
+                <div class="skill-card bg-dark-900 border border-gray-800 rounded-xl p-4 flex items-center space-x-3 transition hover:border-accent-cyan" data-category="payments">
+                    <div class="w-10 h-10 bg-[#E00A1E]/10 text-[#E00A1E] rounded-lg flex items-center justify-center text-lg"><i class="fa-solid fa-circle-nodes"></i></div>
+                    <div>
+                        <h4 class="text-sm font-bold text-white">Apache Kafka</h4>
+                        <span class="text-[10px] text-gray-500 font-mono">Real-Time Streams</span>
+                    </div>
+                </div>
+
+                <!-- Celery -->
+                <div class="skill-card bg-dark-900 border border-gray-800 rounded-xl p-4 flex items-center space-x-3 transition hover:border-brand-500" data-category="payments">
+                    <div class="w-10 h-10 bg-green-500/10 text-green-500 rounded-lg flex items-center justify-center text-lg"><i class="fa-solid fa-clock-rotate-left"></i></div>
+                    <div>
+                        <h4 class="text-sm font-bold text-white">Celery Workers</h4>
+                        <span class="text-[10px] text-gray-500 font-mono">Async Pipelines</span>
+                    </div>
+                </div>
+
+                <!-- Redis (NX Deduplication) -->
+                <div class="skill-card bg-dark-900 border border-gray-800 rounded-xl p-4 flex items-center space-x-3 transition hover:border-brand-500" data-category="payments">
+                    <div class="w-10 h-10 bg-red-500/10 text-red-500 rounded-lg flex items-center justify-center text-lg"><i class="fa-solid fa-fire-flame-curved"></i></div>
+                    <div>
+                        <h4 class="text-sm font-bold text-white">Redis Cache</h4>
+                        <span class="text-[10px] text-gray-500 font-mono">NX Deduplication, Lock</span>
+                    </div>
+                </div>
+
+                <!-- Docker Container -->
+                <div class="skill-card bg-dark-900 border border-gray-800 rounded-xl p-4 flex items-center space-x-3 transition hover:border-accent-cyan" data-category="devops">
+                    <div class="w-10 h-10 bg-[#2496ED]/10 text-[#2496ED] rounded-lg flex items-center justify-center text-lg"><i class="fa-brands fa-docker"></i></div>
+                    <div>
+                        <h4 class="text-sm font-bold text-white">Docker</h4>
+                        <span class="text-[10px] text-gray-500 font-mono">Container Architecture</span>
+                    </div>
+                </div>
+
+                <!-- Let's Encrypt / Certbot -->
+                <div class="skill-card bg-dark-900 border border-gray-800 rounded-xl p-4 flex items-center space-x-3 transition hover:border-accent-cyan" data-category="devops">
+                    <div class="w-10 h-10 bg-amber-500/10 text-amber-500 rounded-lg flex items-center justify-center text-lg"><i class="fa-solid fa-lock"></i></div>
+                    <div>
+                        <h4 class="text-sm font-bold text-white">Nginx &amp; SSL</h4>
+                        <span class="text-[10px] text-gray-500 font-mono">Let's Encrypt / DNS</span>
+                    </div>
+                </div>
+
+                <!-- Webhooks -->
+                <div class="skill-card bg-dark-900 border border-gray-800 rounded-xl p-4 flex items-center space-x-3 transition hover:border-accent-cyan" data-category="payments">
+                    <div class="w-10 h-10 bg-accent-cyan/10 text-accent-cyan rounded-lg flex items-center justify-center text-lg"><i class="fa-solid fa-globe"></i></div>
+                    <div>
+                        <h4 class="text-sm font-bold text-white">Webhooks</h4>
+                        <span class="text-[10px] text-gray-500 font-mono">WhatsApp, Payment hooks</span>
+                    </div>
+                </div>
+
+                <!-- Security Protocols (RBAC / JWT) -->
+                <div class="skill-card bg-dark-900 border border-gray-800 rounded-xl p-4 flex items-center space-x-3 transition hover:border-accent-cyan" data-category="devops">
+                    <div class="w-10 h-10 bg-accent-violet/10 text-accent-violet rounded-lg flex items-center justify-center text-lg"><i class="fa-solid fa-key"></i></div>
+                    <div>
+                        <h4 class="text-sm font-bold text-white">Security Controls</h4>
+                        <span class="text-[10px] text-gray-500 font-mono">RBAC, JWT, Encryption</span>
+                    </div>
+                </div>
+
+                <!-- Frontend Integration -->
+                <div class="skill-card bg-dark-900 border border-gray-800 rounded-xl p-4 flex items-center space-x-3 transition hover:border-brand-500" data-category="fullstack">
+                    <div class="w-10 h-10 bg-[#61DAFB]/10 text-[#61DAFB] rounded-lg flex items-center justify-center text-lg"><i class="fa-brands fa-react"></i></div>
+                    <div>
+                        <h4 class="text-sm font-bold text-white">React.js</h4>
+                        <span class="text-[10px] text-gray-500 font-mono">Admin dashboards integration</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Education Banner -->
+            <div class="mt-16 bg-dark-900 border border-gray-800 rounded-2xl p-6 max-w-3xl mx-auto flex flex-col md:flex-row items-center gap-6 justify-between">
+                <div class="flex items-center space-x-4">
+                    <div class="w-12 h-12 bg-brand-500/10 text-brand-500 rounded-xl flex items-center justify-center text-2xl"><i class="fa-solid fa-graduation-cap"></i></div>
+                    <div>
+                        <span class="text-xs font-mono text-brand-500 tracking-wider">Education Credentials</span>
+                        <h3 class="text-lg font-bold text-white">BSc in Computer Technology</h3>
+                        <p class="text-sm text-gray-400">Nehru Arts and Science College, Coimbatore (2018 - 2021)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact & API Gateway Portal -->
+    <section id="contact" class="py-20 bg-dark-900 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                <!-- Contact Core Copy -->
+                <div class="lg:col-span-5 space-y-6">
+                    <span class="text-sm font-semibold text-brand-500 uppercase tracking-widest">Connect With Me</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Let's build reliable back-end systems together</h2>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Looking to secure your system endpoints, construct a custom CRM engine, scale payment microservices, or configure optimized database indexes? Use the developer API sandbox on the right or send a conventional contact form.
+                    </p>
+
+                    <div class="space-y-4 pt-4 font-sans">
+                        <div class="flex items-center space-x-3">
+                            <span class="w-10 h-10 bg-brand-500/10 rounded-lg flex items-center justify-center text-brand-500"><i class="fa-solid fa-envelope"></i></span>
+                            <div>
+                                <span class="text-[10px] text-gray-500 font-mono block">Direct Mail</span>
+                                <a href="mailto:vishak1736@gmail.com" class="text-sm font-semibold text-gray-300 hover:text-brand-500">vishak1736@gmail.com</a>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <span class="w-10 h-10 bg-accent-emerald/10 rounded-lg flex items-center justify-center text-accent-emerald"><i class="fa-solid fa-phone"></i></span>
+                            <div>
+                                <span class="text-[10px] text-gray-500 font-mono block">Phone Support</span>
+                                <a href="tel:+919791921736" class="text-sm font-semibold text-gray-300 hover:text-accent-emerald">+91 9791921736</a>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <span class="w-10 h-10 bg-accent-cyan/10 rounded-lg flex items-center justify-center text-accent-cyan"><i class="fa-brands fa-linkedin"></i></span>
+                            <div>
+                                <span class="text-[10px] text-gray-500 font-mono block">LinkedIn Profile</span>
+                                <a href="https://linkedin.com/in/720966208" target="_blank" rel="noopener noreferrer" class="text-sm font-semibold text-gray-300 hover:text-accent-cyan">linkedin.com/in/720966208</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive Contact Console Box -->
+                <div class="lg:col-span-7 bg-dark-950 border border-gray-800 rounded-2xl shadow-2xl overflow-hidden">
+                    <!-- Tab Headers -->
+                    <div class="bg-dark-900 border-b border-gray-800 flex text-xs font-mono">
+                        <button onclick="switchContactTab('regular')" id="tab-btn-regular" class="flex-1 py-3 text-center text-white border-b-2 border-brand-500 font-bold tracking-tight">
+                            <i class="fa-solid fa-pen-nib mr-1.5"></i> UI Mail Client
+                        </button>
+                        <button onclick="switchContactTab('api')" id="tab-btn-api" class="flex-1 py-3 text-center text-gray-500 hover:text-gray-300 font-bold tracking-tight border-b-2 border-transparent">
+                            <i class="fa-solid fa-terminal mr-1.5"></i> API raw POST (JSON)
+                        </button>
+                    </div>
+
+                    <!-- Conventional Form Client -->
+                    <form id="contact-form-regular" class="p-6 space-y-4" onsubmit="handleContactSubmit(event, 'regular')">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="text-[11px] font-mono text-gray-500 uppercase block mb-1">Company / Recruiter</label>
+                                <input required type="text" id="reg-name" placeholder="EZY Helpers Ltd." class="w-full bg-dark-900 border border-gray-800 rounded-lg p-2.5 text-sm text-gray-300 focus:outline-none focus:border-brand-500">
+                            </div>
+                            <div>
+                                <label class="text-[11px] font-mono text-gray-500 uppercase block mb-1">Inbound Contact Email</label>
+                                <input required type="email" id="reg-email" placeholder="hr@ezyhelpers.com" class="w-full bg-dark-900 border border-gray-800 rounded-lg p-2.5 text-sm text-gray-300 focus:outline-none focus:border-brand-500">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="text-[11px] font-mono text-gray-500 uppercase block mb-1">Topic Subject</label>
+                            <input required type="text" id="reg-subject" placeholder="Back-End Integration Project Alignment" class="w-full bg-dark-900 border border-gray-800 rounded-lg p-2.5 text-sm text-gray-300 focus:outline-none focus:border-brand-500">
+                        </div>
+                        <div>
+                            <label class="text-[11px] font-mono text-gray-500 uppercase block mb-1">Proposed Architecture Scope / Message</label>
+                            <textarea required id="reg-message" rows="4" placeholder="Hello Vishak, we have an exciting project requiring Django/PostgreSQL, Redis and webhook infrastructure optimization. Let's align." class="w-full bg-dark-900 border border-gray-800 rounded-lg p-2.5 text-sm text-gray-300 focus:outline-none focus:border-brand-500"></textarea>
+                        </div>
+                        <button type="submit" class="w-full py-3 bg-brand-600 hover:bg-brand-500 text-white font-bold text-xs uppercase tracking-widest rounded-xl transition">
+                            Send Message Packet
+                        </button>
+                    </form>
+
+                    <!-- API Raw Post Client Terminal -->
+                    <div id="contact-form-api" class="p-6 space-y-4 hidden font-mono">
+                        <div class="text-xs text-gray-500 mb-2">
+                            <span>Execute direct client payload. Enter valid raw values in parameters:</span>
+                        </div>
+                        <div class="bg-dark-900 border border-gray-800 rounded-xl p-4 text-xs leading-relaxed text-gray-400">
+                            <div><span class="text-accent-violet">POST</span> <span class="text-white">/api/v1/inbox/dispatch</span> <span class="text-accent-emerald">HTTP/1.1</span></div>
+                            <div><span class="text-accent-cyan">Host:</span> api.vishaks.portfolio</div>
+                            <div><span class="text-accent-cyan">Content-Type:</span> application/json</div>
+                            <div class="my-3 border-t border-gray-800"></div>
+                            <textarea id="api-payload-area" rows="6" class="w-full bg-transparent border-none text-accent-cyan focus:outline-none resize-none overflow-y-auto leading-relaxed font-mono">
+{
+  "sender_name": "SaaS Platform Partners",
+  "sender_email": "recruiting@saaspartners.com",
+  "subject": "Senior Backend Infrastructure Role",
+  "payload": "Hi Vishak, we noticed your EZY Helpers CRM project and Jodo payments background. We would love to set up a technical discussion."
+}</textarea>
+                        </div>
+                        <button onclick="submitContactAPI()" class="w-full py-3 bg-accent-cyan hover:bg-accent-cyan/95 text-dark-950 font-bold text-xs uppercase tracking-widest rounded-xl transition">
+                            EXECUTE CURL POST REQUEST
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark-950 border-t border-gray-800 py-12 text-center text-sm text-gray-500 font-mono">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
+            <div class="flex justify-center space-x-6 text-lg text-gray-400">
+                <a href="mailto:vishak1736@gmail.com" class="hover:text-brand-500"><i class="fa-solid fa-envelope"></i></a>
+                <a href="https://linkedin.com/in/720966208" target="_blank" rel="noopener noreferrer" class="hover:text-brand-500"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="hover:text-brand-500"><i class="fa-brands fa-github"></i></a>
+            </div>
+            <p>© 2026 Vishak S. Reference: "Vishak S-3.pdf" resume files verbatim. Constructed with Python &amp; DevOps principles.</p>
+        </div>
+    </footer>
+
+    <!-- Project Deep-Dive Dynamic Modal -->
+    <div id="project-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-dark-950/80 backdrop-blur-md hidden transition duration-300">
+        <div class="bg-dark-900 border border-gray-800 rounded-2xl max-w-2xl w-full max-h-[85vh] overflow-y-auto shadow-2xl transition duration-300">
+            <!-- Modal Header -->
+            <div class="bg-dark-950 px-6 py-4 border-b border-gray-800 flex items-center justify-between sticky top-0">
+                <h3 id="modal-title" class="text-lg font-bold text-white">Project Title</h3>
+                <button onclick="closeProjectModal()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <!-- Modal Body -->
+            <div class="p-6 space-y-6">
+                <div>
+                    <span class="text-xs font-mono text-brand-500 uppercase tracking-wider block mb-1">Architecture Summary</span>
+                    <p id="modal-description" class="text-sm text-gray-300 leading-relaxed"></p>
+                </div>
+                
+                <div>
+                    <span class="text-xs font-mono text-accent-cyan uppercase tracking-wider block mb-2">Key Engineering Tasks</span>
+                    <ul id="modal-bullets" class="space-y-2 text-sm text-gray-400">
+                        <!-- Dynamic list injection -->
+                    </ul>
+                </div>
+
+                <div>
+                    <span class="text-xs font-mono text-accent-emerald uppercase tracking-wider block mb-2 font-semibold">Tech Stack Employed</span>
+                    <div id="modal-tech-tags" class="flex flex-wrap gap-2">
+                        <!-- Dynamic tag injection -->
+                    </div>
+                </div>
+            </div>
+            <!-- Modal Footer -->
+            <div class="px-6 py-4 bg-dark-950 border-t border-gray-800 flex justify-end">
+                <button onclick="closeProjectModal()" class="px-4 py-2 bg-dark-900 border border-gray-800 hover:border-gray-700 text-gray-300 hover:text-white rounded-lg text-sm transition font-sans">Close Details</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Core JavaScript Logic & Simulation -->
+    <script>
+        // Copy Profile snippet helper function
+        function copyHeroCode() {
+            const pre = document.getElementById('code-snippet-profile');
+            const range = document.createRange();
+            range.selectNode(pre);
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+            try {
+                document.execCommand('copy');
+                showNotification("Code snippet copied to clipboard!", "success");
+            } catch(err) {
+                showNotification("Failed to copy code snippet", "error");
+            }
+            window.getSelection().removeAllRanges();
+        }
+
+        // Custom notification toaster helper
+        function showNotification(msg, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `animate-toast max-w-sm w-80 bg-dark-900 border ${type === 'success' ? 'border-accent-emerald' : 'border-red-500'} p-4 rounded-xl shadow-2xl flex items-center space-x-3 text-xs font-mono`;
+            
+            const icon = type === 'success' 
+                ? '<i class="fa-solid fa-check-circle text-accent-emerald text-base"></i>' 
+                : '<i class="fa-solid fa-circle-exclamation text-red-500 text-base"></i>';
+
+            toast.innerHTML = `
+                ${icon}
+                <div class="flex-1 text-gray-300">
+                    ${msg}
+                </div>
+            `;
+            container.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'transition', 'duration-500');
+                setTimeout(() => toast.remove(), 500);
+            }, 4000);
+        }
+
+        // Mobile Menu Toggling
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Interactive microservice flow simulator execution status
+        let isSimulating = false;
+        function startArchitectureSimulation() {
+            if (isSimulating) {
+                showNotification("Simulation pipeline is currently active. Let it settle.", "error");
+                return;
+            }
+            isSimulating = true;
+            
+            const simBtn = document.getElementById('trigger-sim-btn');
+            simBtn.innerText = "Processing System Data...";
+            simBtn.disabled = true;
+
+            const terminal = document.getElementById('terminal-screen');
+            terminal.innerHTML = ""; // Clear existing logs
+            
+            const selectedScenario = document.getElementById('sim-scenario').value;
+            const securityMode = document.getElementById('sim-security').value;
+
+            // Scenario Configurations
+            let details = { name: "WhatsApp CHAP CRM Webhook Input", value: "NX Deduplication Lock", channel: "EZY HELPERS PIPELINE" };
+            if (selectedScenario === 'B2B_PAYMENT') {
+                details = { name: "Jodo B2B Multi-Tenant Settlement", value: "$50,000 USD", channel: "KAFKA TRANSACTION TOPIC" };
+            } else if (selectedScenario === 'SaaS_EXPORT') {
+                details = { name: "Asynchronous Bulk CSV Pandas Export", value: "Large Dataset Chunking", channel: "INFINIT SOLUTIONS WORKER" };
+            }
+
+            // Log sequence simulation mapping
+            const logSteps = [
+                {
+                    delay: 0,
+                    node: 'node-client',
+                    flowId: 'flow1',
+                    color: '#06b6d4',
+                    text: `[14:42:01] <span class="text-brand-500">INFO</span> [External Client] Fired webhook event for target: <strong class="text-white">${details.name}</strong> (${details.value}) via ${details.channel}.`
+                },
+                {
+                    delay: 1500,
+                    node: 'node-api',
+                    flowId: 'flow2',
+                    color: '#06b6d4',
+                    text: `[14:42:02] <span class="text-accent-cyan">INFO</span> [Django REST Server] Inbound router intercepted payload. Checking authorization signatures (Let's Encrypt Cert validation)...`
+                },
+                {
+                    delay: 3000,
+                    node: 'node-kafka',
+                    flowId: 'flow3',
+                    color: securityMode === 'VALID' ? '#8b5cf6' : '#ef4444',
+                    text: securityMode === 'VALID' 
+                        ? `[14:42:04] <span class="text-accent-emerald font-bold">SUCCESS</span> [Kafka &amp; Redis] Verified signature. Redis checking NX lock identifier for idempotency. Lock acquired successfully -- request deduplicated.`
+                        : `[14:42:04] <span class="text-red-500 font-bold">BLOCKED</span> [Kafka &amp; Redis] Redis NX lock key exists! Redundant input payload rejected. Terminating transaction to prevent duplicate database writes.`
+                },
+                {
+                    delay: 4500,
+                    node: 'node-celery',
+                    flowId: 'flow4',
+                    color: securityMode === 'VALID' ? '#eab308' : 'transparent',
+                    text: securityMode === 'VALID'
+                        ? `[14:42:05] <span class="text-yellow-500">INFO</span> [Celery Workers] Thread consumed task background queue successfully. Running parsing operations with Pandas dataframe chunking...`
+                        : `[14:42:05] <span class="text-gray-500">CLOSED</span> Pipeline terminated gracefully.`
+                },
+                {
+                    delay: 6000,
+                    node: 'node-db',
+                    flowId: 'db-final',
+                    color: securityMode === 'VALID' ? '#10b981' : 'transparent',
+                    text: securityMode === 'VALID'
+                        ? `[14:42:07] <span class="text-accent-emerald font-bold">SUCCESS</span> [PostgreSQL] Transformed records persisted in database. Indexes validated and committed. Transaction S-${Math.floor(Math.random()*900000 + 100000)} is secure and healthy.`
+                        : `[14:42:07] <span class="text-gray-500">AUDIT</span> System state preserved safely.`
+                }
+            ];
+
+            // Execution engine for node highlights and line currents
+            logSteps.forEach((step) => {
+                setTimeout(() => {
+                    // Update terminal logs
+                    const entry = document.createElement('div');
+                    entry.innerHTML = step.text;
+                    terminal.appendChild(entry);
+                    terminal.scrollTop = terminal.scrollHeight;
+
+                    // Reset all nodes
+                    document.querySelectorAll('#interactive-flow div.z-10').forEach(n => {
+                        n.classList.remove('node-active-cyan', 'node-active-emerald');
+                    });
+
+                    // Highlight dynamic active nodes
+                    const activeNode = document.getElementById(step.node);
+                    if (activeNode) {
+                        if (step.color === '#10b981') {
+                            activeNode.classList.add('node-active-emerald');
+                        } else if (step.color !== 'transparent') {
+                            activeNode.classList.add('node-active-cyan');
+                        }
+                    }
+
+                    // Trigger active flow line highlighting
+                    if (step.flowId && step.flowId !== 'db-final') {
+                        const flowLine = document.getElementById(step.flowId);
+                        if (flowLine) {
+                            flowLine.setAttribute('stroke', step.color);
+                        }
+                    }
+
+                    // Final step reset controls
+                    if (step.flowId === 'db-final') {
+                        setTimeout(() => {
+                            simBtn.innerText = "Trigger Simulation";
+                            simBtn.disabled = false;
+                            isSimulating = false;
+                            // Reset line paths
+                            ['flow1', 'flow2', 'flow3', 'flow4'].forEach(id => {
+                                document.getElementById(id).setAttribute('stroke', 'transparent');
+                            });
+                            document.querySelectorAll('#interactive-flow div.z-10').forEach(n => {
+                                n.classList.remove('node-active-cyan', 'node-active-emerald');
+                            });
+                            if (securityMode === 'VALID') {
+                                showNotification(`Pipeline Simulation Succeeded!`, "success");
+                            } else {
+                                showNotification(`Pipeline Handled Duplicate Request Preventatively!`, "success");
+                            }
+                        }, 2000);
+                    }
+                }, step.delay);
+            });
+        }
+
+        // Skills filters categorization
+        function filterSkills(category) {
+            // Update filter state buttons UI styling
+            const filterBtns = ['all', 'fullstack', 'payments', 'devops'];
+            filterBtns.forEach(cat => {
+                const btn = document.getElementById(`skill-btn-${cat}`);
+                if (cat === category) {
+                    btn.className = "px-4 py-2 bg-brand-600 text-white rounded-lg text-xs font-mono uppercase tracking-wider transition";
+                } else {
+                    btn.className = "px-4 py-2 bg-dark-900 border border-gray-800 text-gray-400 hover:text-white rounded-lg text-xs font-mono uppercase tracking-wider transition";
+                }
+            });
+
+            // Toggle target cards
+            document.querySelectorAll('#skills-grid .skill-card').forEach(card => {
+                const itemCategory = card.getAttribute('data-category');
+                if (category === 'all' || itemCategory === category) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Project Deep-dive data repository
+        const projectData = {
+            'chap-crm': {
+                title: 'CHAP Enterprise CRM Platform (EZY Helpers)',
+                desc: 'An end-to-end proprietary customer relationship management platform orchestrating communication steps using Redis NX locking mechanisms to deduplicate WhatsApp webhooks.',
+                bullets: [
+                    'Built fully customizable multi-stage customer journey pipelines on Django and transactional PostgreSQL.',
+                    'Implemented Celery-based messaging queues paired with Redis cache structures to route WhatsApp transactional notifications securely.',
+                    'Managed AWS production containers with Docker Compose, Nginx web proxies, Certbot configurations, and secure domain routing.'
+                ],
+                tags: ['Django Core', 'Redis NX Locking', 'WhatsApp API', 'Docker Compose', 'AWS Deployments', 'Nginx & SSL']
+            },
+            'payment-platform': {
+                title: 'B2B/B2C Payment & Integration Platform (Jodo Fintech)',
+                desc: 'A high-availability Python & FastAPI decoupled microservices ecosystem built to securely process transaction billing tiers, coordinate Jodo bank settlements, and stream transactions securely.',
+                bullets: [
+                    'Built robust FastAPI webhook servers routing and validating cryptographic merchant authorization signatures.',
+                    'Engineered subscription services with Celery/Redis scheduling background tasks for automated billing checks.',
+                    'Asynchronously routed payment updates over Apache Kafka streams to guard Postgres master databases from concurrency bottlenecks.'
+                ],
+                tags: ['FastAPI Microservices', 'Apache Kafka', 'Webhook Retries', 'Celery Billing', 'Docker', 'AWS ECS']
+            },
+            'forex-system': {
+                title: 'B2B Foreign Currency Exchange System (Infinit Solutions)',
+                desc: 'An automated banking platform designed to calculate real-time foreign currency exchange rate streams, automated commercial invoicing, secure audit logs, and custom RBAC parameters.',
+                bullets: [
+                    'Constructed robust authorization and secure data encryption schemes based on JWT/Token keys.',
+                    'Configured optimized relational MySQL queries, including index tuning, to reduce loading times across financial tables.',
+                    'Developed asynchronous file parsers and bulk generators (XLSX, CSV, PDF formats) using Pandas pipelines.'
+                ],
+                tags: ['Django REST Framework', 'RBAC JWT Security', 'Pandas Pipelines', 'MySQL Indexing', 'AWS CI/CD']
+            },
+            'analytics-dashboard': {
+                title: 'Enterprise Multi-Tenant SaaS Analytics & Control Dashboard',
+                desc: 'A full-stack administrative center rendering metrics on business performance, user conversions, subscription rates, and payment channel throughput.',
+                bullets: [
+                    'Integrated clean React.js component layouts capturing dynamic data states from backend REST APIs.',
+                    'Mapped interactive visual graphs utilizing ApexCharts showing transactional flows and database health metrics.',
+                    'Implemented automated invoice generation and cloud-first deployment workflows over AWS EC2 infrastructure.'
+                ],
+                tags: ['React.js', 'Django Core', 'ApexCharts', 'Docker', 'AWS Infrastructure']
+            }
+        };
+
+        // Project Modals Controller
+        function openProjectModal(projectId) {
+            const data = projectData[projectId];
+            if (!data) return;
+
+            document.getElementById('modal-title').innerText = data.title;
+            document.getElementById('modal-description').innerText = data.desc;
+            
+            // Bullets builder
+            const bulletsContainer = document.getElementById('modal-bullets');
+            bulletsContainer.innerHTML = "";
+            data.bullets.forEach(point => {
+                const li = document.createElement('li');
+                li.className = "flex items-start";
+                li.innerHTML = `
+                    <span class="text-brand-500 mr-2.5 mt-1 text-xs"><i class="fa-solid fa-circle-check"></i></span>
+                    <span>${point}</span>
+                `;
+                bulletsContainer.appendChild(li);
+            });
+
+            // Tech tags builder
+            const tagsContainer = document.getElementById('modal-tech-tags');
+            tagsContainer.innerHTML = "";
+            data.tags.forEach(tag => {
+                const span = document.createElement('span');
+                span.className = "bg-dark-900 border border-gray-800 px-2.5 py-1 rounded text-xs text-gray-300 font-mono";
+                span.innerText = tag;
+                tagsContainer.appendChild(span);
+            });
+
+            // Reveal modal
+            const modal = document.getElementById('project-modal');
+            modal.classList.remove('hidden');
+        }
+
+        function closeProjectModal() {
+            document.getElementById('project-modal').classList.add('hidden');
+        }
+
+        // Contact Portal tabs controller
+        function switchContactTab(tabName) {
+            const btnReg = document.getElementById('tab-btn-regular');
+            const btnApi = document.getElementById('tab-btn-api');
+            const formReg = document.getElementById('contact-form-regular');
+            const formApi = document.getElementById('contact-form-api');
+
+            if (tabName === 'regular') {
+                btnReg.className = "flex-1 py-3 text-center text-white border-b-2 border-brand-500 font-bold tracking-tight";
+                btnApi.className = "flex-1 py-3 text-center text-gray-500 hover:text-gray-300 font-bold tracking-tight border-b-2 border-transparent";
+                formReg.classList.remove('hidden');
+                formApi.classList.add('hidden');
+            } else {
+                btnApi.className = "flex-1 py-3 text-center text-white border-b-2 border-accent-cyan font-bold tracking-tight";
+                btnReg.className = "flex-1 py-3 text-center text-gray-500 hover:text-gray-300 font-bold tracking-tight border-b-2 border-transparent";
+                formReg.classList.add('hidden');
+                formApi.classList.remove('hidden');
+            }
+        }
+
+        // Contact requests handling
+        function handleContactSubmit(event, type) {
+            event.preventDefault();
+            
+            // Gather values based on form submission
+            let sender = document.getElementById('reg-name').value;
+            let email = document.getElementById('reg-email').value;
+            let message = document.getElementById('reg-message').value;
+
+            // Trigger mock delivery success
+            showNotification(`HTTP 201 Created: Message packet dispatched from ${sender}!`, 'success');
+            
+            // Reset fields
+            document.getElementById('contact-form-regular').reset();
+        }
+
+        function submitContactAPI() {
+            const rawPayload = document.getElementById('api-payload-area').value;
+            try {
+                const parsed = JSON.parse(rawPayload);
+                
+                if (!parsed.sender_name || !parsed.sender_email || !parsed.payload) {
+                    showNotification("JSON Schema Error: 'sender_name', 'sender_email', and 'payload' keys are required parameters.", "error");
+                    return;
+                }
+
+                // Animate raw execution response
+                showNotification(`201 CREATED | Payload dispatched from ${parsed.sender_name}!`, 'success');
+            } catch (err) {
+                showNotification(`JSON Decode Error: Invalid structural data. Verify brackets and commas.`, "error");
+            }
+        }
+    </script>
+</body>
+</html>
