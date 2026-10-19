@@ -37,3 +37,26 @@ An internal CRM covering customer and helper workflows, job assignments, payment
 [LinkedIn](https://www.linkedin.com/in/s-vishak/) · [Email](mailto:vishak1736@gmail.com)
 
 The existing website source is available in [portfolio.html](portfolio.html). A profile README draft and setup notes are in [profile](profile/SETUP.md).
+
+## Architecture explorer and project stories
+
+The published site is served from `docs/` on GitHub Pages. The six-topic system
+architecture explorer uses local CSS, JavaScript, and Lucide icons. Its moving
+particles are a browser simulation of reference designs, not live infrastructure.
+On smaller screens the diagram becomes a card layout with a readable connection
+list. Reduced-motion preferences pause the animation.
+
+Project explanations are published at:
+
+- `docs/projects/marketlens.html`
+- `docs/projects/fuelroute.html`
+- `docs/projects/voice-crm.html`
+- `docs/projects/webhook-ledger.html`
+- `docs/projects/chap-crm.html` (employer experience; private source)
+- `docs/projects/coffee-website.html` (earlier learning project)
+
+Project scope and implementation claims are drawn from repository documentation.
+The case studies distinguish mocked transcription, sample market data, partial
+station coverage, and synthetic payment events. Frontend assets and case studies
+are in `docs/assets/` and `docs/projects/`. Keep the root `portfolio.html` preview
+in sync with `docs/index.html`, adjusting its asset and project link prefixes.
